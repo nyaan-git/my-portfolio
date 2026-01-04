@@ -1,5 +1,7 @@
 import { useState, useRef } from 'react'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import './App.css'
+import WorkDetail from './WorkDetail'
 
 // プロフィール情報
 const profile = {
@@ -35,14 +37,20 @@ const contacts = [
 
 // アプリ一覧データ（後で追加していく）
 const apps = [
-  { id: 1, name: 'アプリ1', description: 'アプリ1の説明文がここに入ります', url: '#' },
-  { id: 2, name: 'アプリ2', description: 'アプリ2の説明文がここに入ります', url: '#' },
-  { id: 3, name: 'アプリ3', description: 'アプリ3の説明文がここに入ります', url: '#' },
+  {
+    id: 1,
+    name: 'ポートフォリオサイト',
+    description: 'React + Viteで作成。GitHub Actionsで自動デプロイ。',
+    workId: 'portfolio-site'
+  },
+  { id: 2, name: 'アプリ2', description: 'アプリ2の説明文がここに入ります', workId: 'app2' },
+  { id: 3, name: 'アプリ3', description: 'アプリ3の説明文がここに入ります', workId: 'app3' },
 ]
 
-function App() {
+function HomePage() {
   const [selectedAppIndex, setSelectedAppIndex] = useState(0)
   const [activePopup, setActivePopup] = useState(null) // 'works' or 'contact' or null
+  const navigate = useNavigate()
 
   // セクションへの参照
   const profileRef = useRef(null)
@@ -75,10 +83,9 @@ function App() {
     setActivePopup(null)
   }
 
-  const handleSelect = (url) => {
-    if (url !== '#') {
-      window.open(url, '_blank')
-    }
+  const handleSelectWork = (workId) => {
+    setActivePopup(null)
+    navigate(`/works/${workId}`)
   }
 
   return (
@@ -154,7 +161,7 @@ function App() {
                       key={app.id}
                       className={`menu-item ${index === selectedAppIndex ? 'selected' : ''}`}
                       onMouseEnter={() => setSelectedAppIndex(index)}
-                      onClick={() => handleSelect(app.url)}
+                      onClick={() => handleSelectWork(app.workId)}
                     >
                       {app.name}
                     </li>
@@ -186,6 +193,15 @@ function App() {
         </div>
       )}
     </div>
+  )
+}
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/works/:workId" element={<WorkDetail />} />
+    </Routes>
   )
 }
 

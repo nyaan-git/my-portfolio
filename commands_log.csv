@@ -23,3 +23,4 @@ No,コマンド,目的,解説
 22,git branch -D main,ブランチ削除,"指定したブランチを強制削除。-Dは--delete --forceの略"
 23,git branch -m main,ブランチ名変更,"現在のブランチ名をmainに変更"
 24,git push -f origin main,強制プッシュ,"リモートの履歴を上書きしてプッシュ。-fはforce（強制）"
+25,npm install react-router-dom,React Routerインストール,"ページ遷移を実現するためのライブラリ。SPAでURLに応じて異なるコンポーネントを表示できる"
