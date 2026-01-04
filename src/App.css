@@ -1,0 +1,200 @@
+/* ポートフォリオ全体 */
+.portfolio {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  max-width: 600px;
+  width: 100%;
+}
+
+/* FF7風メニューボックス */
+.menu-container {
+  background: linear-gradient(180deg, #1a1a6e 0%, #0a0a3e 100%);
+  border: 3px solid #4a6eb5;
+  border-radius: 8px;
+  padding: 20px 30px;
+  box-shadow:
+    inset 2px 2px 4px rgba(255, 255, 255, 0.1),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.3),
+    0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* メニュータイトル */
+.menu-title {
+  color: #ffffff;
+  font-size: 1.3rem;
+  text-align: center;
+  margin: 0 0 15px 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  border-bottom: 2px solid #4a6eb5;
+  padding-bottom: 10px;
+}
+
+/* メニューリスト */
+.menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* メニューアイテム */
+.menu-item {
+  padding: 10px 20px;
+  margin: 3px 0;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+}
+
+/* カーソル（指マーク） */
+.menu-item::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  margin-right: 10px;
+}
+
+.menu-item:hover::before,
+.menu-item.selected::before {
+  content: '👉';
+}
+
+.menu-item:hover,
+.menu-item.selected {
+  background: linear-gradient(90deg, rgba(74, 110, 181, 0.5) 0%, transparent 100%);
+  color: #7dd3fc;
+  text-shadow: 0 0 8px rgba(125, 211, 252, 0.5);
+}
+
+/* 説明テキスト */
+.menu-description {
+  margin-top: 15px;
+  padding-top: 12px;
+  border-top: 2px solid #4a6eb5;
+  color: #a0a0c0;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* プロフィールセクション */
+.profile-content {
+  text-align: center;
+}
+
+.profile-name {
+  font-size: 1.8rem;
+  color: #ffffff;
+  margin: 0 0 5px 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.profile-name-en {
+  font-size: 1rem;
+  color: #7dd3fc;
+  margin: 0 0 15px 0;
+}
+
+.profile-title {
+  font-size: 1.1rem;
+  color: #ffd700;
+  margin: 0 0 15px 0;
+}
+
+.profile-subtitle {
+  font-size: 0.95rem;
+  color: #7dd3fc;
+  margin: 0 0 20px 0;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #4a6eb5;
+}
+
+.profile-highlights {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.highlight-item {
+  font-size: 0.9rem;
+  color: #ffd700;
+  margin: 8px 0;
+  line-height: 1.5;
+}
+
+.profile-detail {
+  text-align: left;
+  border-top: 1px solid #4a6eb5;
+  padding-top: 15px;
+}
+
+.profile-strength {
+  font-size: 0.9rem;
+  color: #90ee90;
+  margin: 0 0 12px 0;
+  line-height: 1.6;
+}
+
+.profile-vision {
+  font-size: 0.9rem;
+  color: #c0c0e0;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* スキルセクション */
+.skills-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.skill-category {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.skill-label {
+  background: #4a6eb5;
+  color: #ffffff;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  min-width: 120px;
+  text-align: center;
+}
+
+.skill-items {
+  color: #c0c0e0;
+  font-size: 0.9rem;
+  flex: 1;
+  line-height: 1.8;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 480px) {
+  .portfolio {
+    padding: 10px;
+  }
+
+  .menu-container {
+    padding: 15px 20px;
+  }
+
+  .profile-name {
+    font-size: 1.5rem;
+  }
+
+  .skill-category {
+    flex-direction: column;
+  }
+
+  .skill-label {
+    min-width: auto;
+  }
+}
