@@ -40,11 +40,11 @@ const apps = [
   {
     id: 1,
     name: 'ポートフォリオサイト',
-    description: 'React + Viteで作成。GitHub Actionsで自動デプロイ。',
+    description: '自己紹介と作品を掲載したWebサイト',
     workId: 'portfolio-site'
   },
-  { id: 2, name: 'アプリ2', description: 'アプリ2の説明文がここに入ります', workId: 'app2' },
-  { id: 3, name: 'アプリ3', description: 'アプリ3の説明文がここに入ります', workId: 'app3' },
+  { id: 2, name: 'アプリ2', description: '準備中', workId: 'app2' },
+  { id: 3, name: 'アプリ3', description: '準備中', workId: 'app3' },
 ]
 
 function HomePage() {

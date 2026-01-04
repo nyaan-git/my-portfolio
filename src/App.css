@@ -153,6 +153,7 @@
   color: #a0a0c0;
   font-size: 0.85rem;
   text-align: center;
+  min-height: 60px;
 }
 
 /* プロフィールセクション */
@@ -278,7 +279,7 @@
 /* ポップアップコンテンツ */
 .popup-content {
   position: relative;
-  min-width: 350px;
+  width: 350px;
   max-width: 90%;
   animation: slideIn 0.3s ease;
 }
