@@ -1,11 +1,11 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import './App.css'
 
 // プロフィール情報
 const profile = {
   name: '宮川大地',
   nameEn: 'Daichi Miyakawa',
-  title: 'システムエンジニア（実務経験2年）',
+  title: 'システムエンジニア（実務経験5年）',
   subtitle: 'フルスタックエンジニアを目指して挑戦中',
   highlights: [
     '約3,000万人が利用する通販システムの運用経験',
@@ -19,11 +19,12 @@ const profile = {
 // スキル情報
 const skills = [
   { category: '言語', items: ['C#', 'JavaScript', 'Python', 'Java'] },
-  { category: 'フレームワーク', items: ['Django', 'React'] },
+  { category: 'フレームワーク', items: ['Django'] },
+  { category: 'ライブラリ', items: ['React'] },
   { category: 'DB', items: ['MySQL', 'PostgreSQL', 'SQLServer', 'OracleDB', 'TeraData'] },
   { category: 'インフラ/運用', items: ['JP1', 'HULFT', 'DataMagic', 'SAS'] },
   { category: 'セキュリティ', items: ['DeepSecurity', 'ServerProtect'] },
-  { category: 'Microsoft/ローコード', items: ['SharePoint', 'PowerApps', 'PowerAutomate', 'Kintone'] },
+  { category: 'ローコード/SaaS', items: ['SharePoint', 'PowerApps', 'PowerAutomate', 'Kintone'] },
 ]
 
 // 連絡先情報
@@ -40,7 +41,39 @@ const apps = [
 ]
 
 function App() {
-  const [selectedIndex, setSelectedIndex] = useState(0)
+  const [selectedAppIndex, setSelectedAppIndex] = useState(0)
+  const [activePopup, setActivePopup] = useState(null) // 'works' or 'contact' or null
+
+  // セクションへの参照
+  const profileRef = useRef(null)
+  const skillsRef = useRef(null)
+
+  const scrollToSection = (ref) => {
+    if (ref.current) {
+      const headerHeight = 70 // ヘッダーの高さ分オフセット
+      const elementPosition = ref.current.getBoundingClientRect().top
+      const offsetPosition = elementPosition + window.pageYOffset - headerHeight
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      })
+    }
+  }
+
+  const handleMenuClick = (menu) => {
+    if (menu === 'profile') {
+      scrollToSection(profileRef)
+    } else if (menu === 'skills') {
+      scrollToSection(skillsRef)
+    } else if (menu === 'works' || menu === 'contact') {
+      setActivePopup(menu)
+    }
+  }
+
+  const closePopup = () => {
+    setActivePopup(null)
+  }
 
   const handleSelect = (url) => {
     if (url !== '#') {
@@ -50,76 +83,108 @@ function App() {
 
   return (
     <div className="portfolio">
-      {/* 自己紹介セクション */}
-      <section className="menu-container profile-section">
-        <h1 className="menu-title">PROFILE</h1>
-        <div className="profile-content">
-          <p className="profile-name">{profile.name}</p>
-          <p className="profile-name-en">{profile.nameEn}</p>
-          <p className="profile-title">{profile.title}</p>
-          <p className="profile-subtitle">{profile.subtitle}</p>
+      {/* 固定ヘッダーメニュー */}
+      <nav className="nav-header">
+        <ul className="nav-menu">
+          <li className="nav-item" onClick={() => handleMenuClick('profile')}>
+            PROFILE
+          </li>
+          <li className="nav-item" onClick={() => handleMenuClick('skills')}>
+            SKILLS
+          </li>
+          <li className="nav-item" onClick={() => handleMenuClick('works')}>
+            WORKS
+          </li>
+          <li className="nav-item" onClick={() => handleMenuClick('contact')}>
+            CONTACT
+          </li>
+        </ul>
+      </nav>
 
-          <div className="profile-highlights">
-            {profile.highlights.map((item, index) => (
-              <p key={index} className="highlight-item">✦ {item}</p>
+      {/* メインコンテンツ */}
+      <div className="main-content">
+        {/* PROFILE */}
+        <section ref={profileRef} className="light-section profile-section">
+          <h1 className="light-title">PROFILE</h1>
+          <div className="profile-content">
+            <p className="profile-name">{profile.name}</p>
+            <p className="profile-name-en">{profile.nameEn}</p>
+            <p className="profile-title">{profile.title}</p>
+            <p className="profile-subtitle">{profile.subtitle}</p>
+
+            <div className="profile-highlights">
+              {profile.highlights.map((item, index) => (
+                <p key={index} className="highlight-item">✦ {item}</p>
+              ))}
+            </div>
+
+            <div className="profile-detail">
+              <p className="profile-strength">{profile.strength}</p>
+              <p className="profile-vision">{profile.vision}</p>
+            </div>
+          </div>
+        </section>
+
+        {/* SKILLS */}
+        <section ref={skillsRef} className="light-section skills-section">
+          <h2 className="light-title">SKILLS</h2>
+          <div className="skills-content">
+            {skills.map((skill, index) => (
+              <div key={index} className="skill-category">
+                <span className="skill-label">{skill.category}</span>
+                <span className="skill-items">{skill.items.join(' / ')}</span>
+              </div>
             ))}
           </div>
+        </section>
+      </div>
 
-          <div className="profile-detail">
-            <p className="profile-strength">{profile.strength}</p>
-            <p className="profile-vision">{profile.vision}</p>
+      {/* ポップアップ */}
+      {activePopup && (
+        <div className="popup-overlay" onClick={closePopup}>
+          <div className="popup-content menu-container" onClick={(e) => e.stopPropagation()}>
+            <button className="popup-close" onClick={closePopup}>✕</button>
+
+            {activePopup === 'works' && (
+              <>
+                <h2 className="menu-title">WORKS</h2>
+                <ul className="menu-list">
+                  {apps.map((app, index) => (
+                    <li
+                      key={app.id}
+                      className={`menu-item ${index === selectedAppIndex ? 'selected' : ''}`}
+                      onMouseEnter={() => setSelectedAppIndex(index)}
+                      onClick={() => handleSelect(app.url)}
+                    >
+                      {app.name}
+                    </li>
+                  ))}
+                </ul>
+                <p className="menu-description">
+                  {apps[selectedAppIndex]?.description}
+                </p>
+              </>
+            )}
+
+            {activePopup === 'contact' && (
+              <>
+                <h2 className="menu-title">CONTACT</h2>
+                <ul className="menu-list">
+                  {contacts.map((contact, index) => (
+                    <li
+                      key={index}
+                      className="menu-item"
+                      onClick={() => window.open(contact.url, '_blank')}
+                    >
+                      {contact.name}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
           </div>
         </div>
-      </section>
-
-      {/* 作品一覧セクション */}
-      <section className="menu-container works-section">
-        <h2 className="menu-title">WORKS</h2>
-        <ul className="menu-list">
-          {apps.map((app, index) => (
-            <li
-              key={app.id}
-              className={`menu-item ${index === selectedIndex ? 'selected' : ''}`}
-              onMouseEnter={() => setSelectedIndex(index)}
-              onClick={() => handleSelect(app.url)}
-            >
-              {app.name}
-            </li>
-          ))}
-        </ul>
-        <p className="menu-description">
-          {apps[selectedIndex]?.description}
-        </p>
-      </section>
-
-      {/* スキルセクション */}
-      <section className="menu-container skills-section">
-        <h2 className="menu-title">SKILLS</h2>
-        <div className="skills-content">
-          {skills.map((skill, index) => (
-            <div key={index} className="skill-category">
-              <span className="skill-label">{skill.category}</span>
-              <span className="skill-items">{skill.items.join(' / ')}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 連絡先セクション */}
-      <section className="menu-container contact-section">
-        <h2 className="menu-title">CONTACT</h2>
-        <ul className="menu-list">
-          {contacts.map((contact, index) => (
-            <li
-              key={index}
-              className="menu-item"
-              onClick={() => window.open(contact.url, '_blank')}
-            >
-              {contact.name}
-            </li>
-          ))}
-        </ul>
-      </section>
+      )}
     </div>
   )
 }

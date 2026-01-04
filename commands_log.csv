@@ -19,3 +19,7 @@ No,コマンド,目的,解説
 18,git push -u origin main,GitHubにプッシュ,"ローカルのコミットをGitHubにアップロード。-uで追跡ブランチ設定"
 19,mkdir -p .github/workflows,ワークフローフォルダ作成,"GitHub Actions用のディレクトリを作成。-pは親フォルダも一緒に作成"
 20,git add . && git commit && git push,変更をプッシュ,"ファイル追加→コミット→プッシュを一度に実行"
+21,git checkout --orphan temp-branch,履歴なしの新ブランチ作成,"過去の履歴を持たない新しいブランチを作成"
+22,git branch -D main,ブランチ削除,"指定したブランチを強制削除。-Dは--delete --forceの略"
+23,git branch -m main,ブランチ名変更,"現在のブランチ名をmainに変更"
+24,git push -f origin main,強制プッシュ,"リモートの履歴を上書きしてプッシュ。-fはforce（強制）"

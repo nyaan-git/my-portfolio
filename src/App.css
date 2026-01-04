@@ -1,29 +1,103 @@
 /* ポートフォリオ全体 */
 .portfolio {
+  min-height: 100vh;
+}
+
+/* 固定ヘッダーナビゲーション */
+.nav-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  padding: 15px 20px;
+}
+
+.nav-menu {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  color: #1a1a4e;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.nav-item:hover {
+  background: rgba(74, 110, 181, 0.15);
+  color: #4a6eb5;
+  transform: translateY(-2px);
+}
+
+/* メインコンテンツ */
+.main-content {
+  padding-top: 80px; /* ヘッダーの高さ分 */
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 20px;
-  max-width: 600px;
-  width: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 40px;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-/* FF7風メニューボックス */
+/* 明るめセクション（PROFILE, SKILLS用） */
+.light-section {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 25px 30px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.15),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.light-section:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.light-title {
+  color: #1a1a4e;
+  font-size: 1.3rem;
+  text-align: center;
+  margin: 0 0 20px 0;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #4a6eb5;
+}
+
+/* FF7風メニューボックス（ポップアップ用） */
 .menu-container {
   background: linear-gradient(180deg, #1a1a6e 0%, #0a0a3e 100%);
   border: 3px solid #4a6eb5;
-  border-radius: 8px;
-  padding: 20px 30px;
+  border-radius: 12px;
+  padding: 20px 25px;
   box-shadow:
     inset 2px 2px 4px rgba(255, 255, 255, 0.1),
     inset -2px -2px 4px rgba(0, 0, 0, 0.3),
-    0 4px 20px rgba(0, 0, 0, 0.5);
+    0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 /* メニュータイトル */
 .menu-title {
   color: #ffffff;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   text-align: center;
   margin: 0 0 15px 0;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
@@ -40,7 +114,7 @@
 
 /* メニューアイテム */
 .menu-item {
-  padding: 10px 20px;
+  padding: 10px 15px;
   margin: 3px 0;
   color: #ffffff;
   cursor: pointer;
@@ -56,7 +130,7 @@
   content: '';
   display: inline-block;
   width: 20px;
-  margin-right: 10px;
+  margin-right: 8px;
 }
 
 .menu-item:hover::before,
@@ -73,11 +147,11 @@
 
 /* 説明テキスト */
 .menu-description {
-  margin-top: 15px;
-  padding-top: 12px;
+  margin-top: 12px;
+  padding-top: 10px;
   border-top: 2px solid #4a6eb5;
   color: #a0a0c0;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   text-align: center;
 }
 
@@ -88,29 +162,30 @@
 
 .profile-name {
   font-size: 1.8rem;
-  color: #ffffff;
+  color: #1a1a4e;
   margin: 0 0 5px 0;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  font-weight: bold;
 }
 
 .profile-name-en {
   font-size: 1rem;
-  color: #7dd3fc;
+  color: #4a6eb5;
   margin: 0 0 15px 0;
 }
 
 .profile-title {
   font-size: 1.1rem;
-  color: #ffd700;
-  margin: 0 0 15px 0;
+  color: #333;
+  margin: 0 0 8px 0;
+  font-weight: bold;
 }
 
 .profile-subtitle {
   font-size: 0.95rem;
-  color: #7dd3fc;
+  color: #4a6eb5;
   margin: 0 0 20px 0;
   padding-bottom: 15px;
-  border-bottom: 1px solid #4a6eb5;
+  border-bottom: 1px solid #ddd;
 }
 
 .profile-highlights {
@@ -120,27 +195,27 @@
 
 .highlight-item {
   font-size: 0.9rem;
-  color: #ffd700;
+  color: #d4a017;
   margin: 8px 0;
   line-height: 1.5;
 }
 
 .profile-detail {
   text-align: left;
-  border-top: 1px solid #4a6eb5;
+  border-top: 1px solid #ddd;
   padding-top: 15px;
 }
 
 .profile-strength {
   font-size: 0.9rem;
-  color: #90ee90;
+  color: #2e8b57;
   margin: 0 0 12px 0;
   line-height: 1.6;
 }
 
 .profile-vision {
   font-size: 0.9rem;
-  color: #c0c0e0;
+  color: #555;
   margin: 0;
   line-height: 1.6;
 }
@@ -165,25 +240,95 @@
   padding: 4px 10px;
   border-radius: 4px;
   font-size: 0.85rem;
-  min-width: 120px;
+  min-width: 140px;
   text-align: center;
 }
 
 .skill-items {
-  color: #c0c0e0;
+  color: #333;
   font-size: 0.9rem;
   flex: 1;
   line-height: 1.8;
 }
 
+/* ポップアップオーバーレイ */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ポップアップコンテンツ */
+.popup-content {
+  position: relative;
+  min-width: 350px;
+  max-width: 90%;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* 閉じるボタン */
+.popup-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.popup-close:hover {
+  color: #7dd3fc;
+}
+
 /* レスポンシブ対応 */
-@media (max-width: 480px) {
-  .portfolio {
-    padding: 10px;
+@media (max-width: 768px) {
+  .nav-menu {
+    gap: 15px;
   }
 
-  .menu-container {
-    padding: 15px 20px;
+  .nav-item {
+    font-size: 0.85rem;
+    padding: 6px 10px;
+  }
+
+  .main-content {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .light-section {
+    padding: 20px;
   }
 
   .profile-name {
@@ -196,5 +341,9 @@
 
   .skill-label {
     min-width: auto;
+  }
+
+  .popup-content {
+    min-width: 90%;
   }
 }
